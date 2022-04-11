@@ -1,2 +1,3 @@
 import TodoList from "./TodoList";
-export { TodoList };
+import EditModal from "./EditModal";
+export { TodoList, EditModal };

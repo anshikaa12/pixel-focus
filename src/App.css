@@ -2,4 +2,5 @@
 @import url("./css/base/typography.css");
 @import url("./css/base/utilities.css");
 @import url("./css/layout/todolist.css");
+@import url("./css/layout/editModal.css");
 @import url("./pages/home/home.css");
