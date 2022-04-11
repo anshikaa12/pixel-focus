@@ -1,0 +1,9 @@
+body {
+  padding: 2rem;
+  background-color: var(--primary-color);
+}
+
+.main-text-color {
+  color: var(--complement-btn-text-color);
+  text-align: center;
+}
