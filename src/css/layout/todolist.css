@@ -1,0 +1,39 @@
+.todo-section {
+  background-color: var(--bg-color);
+  padding: 4rem;
+  width: 90%;
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  border-radius: 1.5rem;
+  position: absolute;
+  bottom: 1px;
+  left: 2%;
+}
+
+.todo-sec-btn {
+  display: flex;
+}
+
+.todoAdd {
+  margin-left: auto;
+}
+.todo-list {
+  padding: 3.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.todo-list-item {
+  list-style-type: none;
+  display: flex;
+  width: 100%;
+}
+
+.li-icons {
+  margin-left: auto;
+  font-size: 2rem;
+}
+.li-icons > i {
+  padding: 0 1.5rem;
+}
