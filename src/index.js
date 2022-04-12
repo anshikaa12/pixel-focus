@@ -4,15 +4,19 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
-import { ToggleProvider } from "./contexts/editContext";
+import { TaskProvider, ToggleProvider, TodoProvider } from "./contexts";
 
 ReactDOM.render(
   <React.StrictMode>
-    <ToggleProvider>
-      <Router>
-        <App />
-      </Router>
-    </ToggleProvider>
+    <TodoProvider>
+      <TaskProvider>
+        <ToggleProvider>
+          <Router>
+            <App />
+          </Router>
+        </ToggleProvider>
+      </TaskProvider>
+    </TodoProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
