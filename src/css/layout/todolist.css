@@ -2,7 +2,7 @@
   background-color: var(--bg-color);
   padding: 4rem;
   width: 90%;
-  height: 60vh;
+  min-height: 60vh;
   display: flex;
   flex-direction: column;
   border-radius: 1.5rem;

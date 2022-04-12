@@ -2,11 +2,11 @@ import React from "react";
 import { useTask, useTodo, useToggle } from "../contexts";
 
 function EditModal() {
-  const { active, setActive } = useToggle();
+  const { setActive } = useToggle();
   const { todoState, todoDispatch } = useTodo();
   const { taskDispatch } = useTask();
   function submitTaskHandler() {
-    setActive(!active);
+    setActive((previous) => !previous);
   }
   return (
     <div className="edit-modal">
