@@ -1,8 +1,10 @@
 import React from "react";
-import { useToggle } from "../contexts/editContext";
+import { useTask, useTodo, useToggle } from "../contexts";
 
 function EditModal() {
   const { active, setActive } = useToggle();
+  const { todoState, todoDispatch } = useTodo();
+  const { taskDispatch } = useTask();
   function submitTaskHandler() {
     setActive(!active);
   }
@@ -14,20 +16,39 @@ function EditModal() {
           type="text"
           className="input-box input-md no-border-input"
           placeholder="Add title"
+          value={todoState.name}
+          onChange={(e) =>
+            todoDispatch({ type: "TODO_NAME", payload: e.target.value })
+          }
         />
         <textarea
           className="input-text-area no-border-input"
           placeholder="Add Description"
+          value={todoState.desc}
+          onChange={(e) =>
+            todoDispatch({ type: "TODO_DESC", payload: e.target.value })
+          }
         />
         <input
           type="text"
           className="input-box input-md no-border-input"
           placeholder="Add timer limit"
+          value={todoState.timer}
+          onChange={(e) =>
+            todoDispatch({ type: "TODO_TIMER", payload: e.target.value })
+          }
         />
-        <button className="mid-btn btn-primary" onClick={submitTaskHandler}>
-          Update
-        </button>
       </form>
+      <button
+        className="mid-btn btn-primary"
+        onClick={() => {
+          taskDispatch({ type: "ADD_TASK", payload: todoState });
+          todoDispatch({ type: "INITIAL_TODO" });
+          submitTaskHandler();
+        }}
+      >
+        Update
+      </button>
     </div>
   );
 }
