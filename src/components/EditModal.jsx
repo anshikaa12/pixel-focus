@@ -1,13 +1,27 @@
 import React from "react";
 import { useTask, useTodo, useToggle } from "../contexts";
+import { useButtonText } from "../contexts/submitButtonContext";
 
 function EditModal() {
   const { setActive } = useToggle();
   const { todoState, todoDispatch } = useTodo();
-  const { taskDispatch } = useTask();
-  function submitTaskHandler() {
-    setActive((previous) => !previous);
+  const { taskState, taskDispatch } = useTask();
+  const { buttonTextState } = useButtonText();
+  function EditTaskList(id) {
+    let updatedList = taskState.taskList.map((item) => {
+      if (item.id === id) {
+        return {
+          ...item,
+          name: todoState.name,
+          desc: todoState.desc,
+          timer: todoState.timer,
+        };
+      }
+      return item;
+    });
+    return updatedList;
   }
+
   return (
     <div className="edit-modal">
       <h4 className="main-h4">Task to do!</h4>
@@ -17,9 +31,9 @@ function EditModal() {
           className="input-box input-md no-border-input"
           placeholder="Add title"
           value={todoState.name}
-          onChange={(e) =>
-            todoDispatch({ type: "TODO_NAME", payload: e.target.value })
-          }
+          onChange={(e) => {
+            todoDispatch({ type: "TODO_NAME", payload: e.target.value });
+          }}
         />
         <textarea
           className="input-text-area no-border-input"
@@ -41,13 +55,22 @@ function EditModal() {
       </form>
       <button
         className="mid-btn btn-primary"
-        onClick={() => {
-          taskDispatch({ type: "ADD_TASK", payload: todoState });
-          todoDispatch({ type: "INITIAL_TODO" });
-          submitTaskHandler();
-        }}
+        onClick={
+          buttonTextState.mode === "ADD"
+            ? () => {
+                setActive((previous) => !previous);
+                taskDispatch({ type: "ADD_TASK", payload: todoState });
+                todoDispatch({ type: "INITIAL_TODO" });
+              }
+            : () => {
+                setActive((previous) => !previous);
+                let updatedList = EditTaskList(buttonTextState.id);
+                taskDispatch({ type: "EDIT_TASK", payload: updatedList });
+                todoDispatch({ type: "INITIAL_TODO" });
+              }
+        }
       >
-        Update
+        {buttonTextState.mode}
       </button>
     </div>
   );

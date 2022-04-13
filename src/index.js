@@ -5,18 +5,21 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
 import { TaskProvider, ToggleProvider, TodoProvider } from "./contexts";
+import { ButtonTextProvider } from "./contexts/submitButtonContext";
 
 ReactDOM.render(
   <React.StrictMode>
-    <TodoProvider>
-      <TaskProvider>
-        <ToggleProvider>
-          <Router>
-            <App />
-          </Router>
-        </ToggleProvider>
-      </TaskProvider>
-    </TodoProvider>
+    <ButtonTextProvider>
+      <TodoProvider>
+        <TaskProvider>
+          <ToggleProvider>
+            <Router>
+              <App />
+            </Router>
+          </ToggleProvider>
+        </TaskProvider>
+      </TodoProvider>
+    </ButtonTextProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
