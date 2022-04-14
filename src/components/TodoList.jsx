@@ -1,12 +1,22 @@
 import React from "react";
-import { useToggle, useTask } from "../contexts";
+import { useToggle, useTask, useTodo } from "../contexts";
+import { useButtonText } from "../contexts/submitButtonContext";
 
 function TodoList() {
-  const { active, setActive } = useToggle();
-  function editTaskHandler() {
-    setActive(!active);
-  }
+  const { setActive } = useToggle();
   const { taskState } = useTask();
+  const { todoDispatch } = useTodo();
+  const { buttonTextDispatch } = useButtonText();
+  function addTaskHandler() {
+    setActive((previous) => !previous);
+  }
+  function editTaskHandler(id) {
+    setActive((previous) => !previous);
+    const taskToEdit = taskState.taskList.find((item) => item.id === id);
+    todoDispatch({ type: "TODO_NAME", payload: taskToEdit.name });
+    todoDispatch({ type: "TODO_DESC", payload: taskToEdit.desc });
+    todoDispatch({ type: "TODO_TIMER", payload: taskToEdit.timer });
+  }
   return (
     <div>
       <div className="todo-section">
@@ -14,7 +24,10 @@ function TodoList() {
           <h2 className="main-h2">To - Do List</h2>
           <button
             className="btn floating-btn todoAdd"
-            onClick={editTaskHandler}
+            onClick={() => {
+              buttonTextDispatch({ type: "ADD_MODE" });
+              addTaskHandler();
+            }}
           >
             +
           </button>
@@ -22,11 +35,20 @@ function TodoList() {
         <ul className="todo-list">
           {taskState.taskList.map((item) => {
             return (
-              <li className="h3-text todo-list-item" key={item.name}>
+              <li className="h3-text todo-list-item" key={item.id}>
                 <p className="h3-text"> {item.name}</p>
                 <div className="li-icons">
                   <i className="fas fa-trash-alt"></i>
-                  <i className="fas fa-edit" onClick={editTaskHandler}></i>
+                  <i
+                    className="fas fa-edit"
+                    onClick={() => {
+                      buttonTextDispatch({
+                        type: "EDIT_MODE",
+                        payload: item.id,
+                      });
+                      editTaskHandler(item.id);
+                    }}
+                  ></i>
                 </div>
               </li>
             );
