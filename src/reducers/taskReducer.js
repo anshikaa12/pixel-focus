@@ -12,6 +12,11 @@ const taskReducer = (state, action) => {
         ...state,
         taskList: action.payload,
       };
+    case "DELETE_TASK":
+      return {
+        ...state,
+        taskList: action.payload,
+      };
     default:
       return state;
   }

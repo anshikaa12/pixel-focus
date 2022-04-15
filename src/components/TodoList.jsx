@@ -4,7 +4,7 @@ import { useButtonText } from "../contexts/submitButtonContext";
 
 function TodoList() {
   const { setActive } = useToggle();
-  const { taskState } = useTask();
+  const { taskState, taskDispatch } = useTask();
   const { todoDispatch } = useTodo();
   const { buttonTextDispatch } = useButtonText();
   function addTaskHandler() {
@@ -17,6 +17,11 @@ function TodoList() {
     todoDispatch({ type: "TODO_DESC", payload: taskToEdit.desc });
     todoDispatch({ type: "TODO_TIMER", payload: taskToEdit.timer });
   }
+
+  function deleteTaskHandler(id) {
+    return taskState.taskList.filter((item) => item.id !== id);
+  }
+
   return (
     <div>
       <div className="todo-section">
@@ -38,7 +43,15 @@ function TodoList() {
               <li className="h3-text todo-list-item" key={item.id}>
                 <p className="h3-text"> {item.name}</p>
                 <div className="li-icons">
-                  <i className="fas fa-trash-alt"></i>
+                  <i
+                    className="fas fa-trash-alt"
+                    onClick={() =>
+                      taskDispatch({
+                        type: "DELETE_TASK",
+                        payload: deleteTaskHandler(item.id),
+                      })
+                    }
+                  ></i>
                   <i
                     className="fas fa-edit"
                     onClick={() => {
