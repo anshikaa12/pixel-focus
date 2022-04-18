@@ -1,0 +1,39 @@
+.pomo-sec {
+  background-color: var(--bg-color);
+  padding: 4rem;
+  width: 90%;
+  min-height: 80vh;
+  border-radius: 1.5rem;
+  position: absolute;
+  bottom: 1px;
+  left: 2%;
+  display: flex;
+  flex-direction: row;
+}
+.timer-sec {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+.task-sec {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 2rem;
+  align-items: center;
+}
+.timer-btn {
+  display: flex;
+  gap: 2rem;
+}
+.timer-btn i {
+  padding: 0px 15px;
+}
+.timevalue {
+  font-size: 40px;
+}
