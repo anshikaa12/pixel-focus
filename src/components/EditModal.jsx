@@ -58,9 +58,9 @@ function EditModal() {
         onClick={
           buttonTextState.mode === "ADD"
             ? () => {
+                todoDispatch({ type: "INITIAL_TODO" });
                 setActive((previous) => !previous);
                 taskDispatch({ type: "ADD_TASK", payload: todoState });
-                todoDispatch({ type: "INITIAL_TODO" });
               }
             : () => {
                 setActive((previous) => !previous);

@@ -1,13 +1,20 @@
 import React from "react";
 import { useToggle, useTask, useTodo } from "../contexts";
 import { useButtonText } from "../contexts/submitButtonContext";
+import { useNavigate } from "react-router-dom";
 
 function TodoList() {
+  let navigate = useNavigate();
+  const routeChange = () => {
+    let path = `/pomodoro`;
+    navigate(path);
+  };
   const { setActive } = useToggle();
   const { taskState, taskDispatch } = useTask();
   const { todoDispatch } = useTodo();
   const { buttonTextDispatch } = useButtonText();
   function addTaskHandler() {
+    todoDispatch({ type: "INITIAL_TODO" });
     setActive((previous) => !previous);
   }
   function editTaskHandler(id) {
@@ -22,6 +29,11 @@ function TodoList() {
     return taskState.taskList.filter((item) => item.id !== id);
   }
 
+  function setCurrentTask(task) {
+    todoDispatch({ type: "TODO_NAME", payload: task.name });
+    todoDispatch({ type: "TODO_DESC", payload: task.desc });
+    todoDispatch({ type: "TODO_TIMER", payload: task.timer });
+  }
   return (
     <div>
       <div className="todo-section">
@@ -43,6 +55,13 @@ function TodoList() {
               <li className="h3-text todo-list-item" key={item.id}>
                 <p className="h3-text"> {item.name}</p>
                 <div className="li-icons">
+                  <i
+                    className="fas fa-clock"
+                    onClick={() => {
+                      setCurrentTask(item);
+                      routeChange();
+                    }}
+                  ></i>
                   <i
                     className="fas fa-trash-alt"
                     onClick={() =>
