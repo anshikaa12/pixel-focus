@@ -46,7 +46,7 @@ function EditModal() {
         <input
           type="text"
           className="input-box input-md no-border-input"
-          placeholder="Add timer limit"
+          placeholder="Add timer limit in seconds"
           value={todoState.timer}
           onChange={(e) =>
             todoDispatch({ type: "TODO_TIMER", payload: e.target.value })
